@@ -5,41 +5,181 @@
   <meta name='viewport' content='width=device-width, initial-scale=1.0'>
   <title>Denmark Housing Decade 2014–2024</title>
   <script src='https://cdn.plot.ly/plotly-3.4.0.min.js'></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { background: #0d0f1a; color: #e2e8f0; font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.7; }
-    nav { position: sticky; top: 0; z-index: 100; background: rgba(13,15,26,0.92); backdrop-filter: blur(10px); border-bottom: 1px solid #2a3350; padding: 0.8rem 2.5rem; display: flex; align-items: center; gap: 2.5rem; }
-    nav .logo { color: #16c79a; font-weight: 700; font-size: 1.05rem; text-decoration: none; letter-spacing: 0.02em; }
-    nav a { color: #8892a4; text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
-    nav a:hover { color: #16c79a; }
-    .hero { min-height: 88vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 5rem 2rem; background: radial-gradient(ellipse at 50% 40%, #1c2237 0%, #0d0f1a 65%); }
-    .hero h1 { font-size: clamp(2.2rem, 6vw, 4.5rem); font-weight: 800; line-height: 1.1; background: linear-gradient(140deg, #16c79a 0%, #a8e6d8 50%, #e2e8f0 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1.5rem; }
-    .hero .sub { font-size: clamp(1rem, 2.5vw, 1.25rem); color: #8892a4; max-width: 680px; margin-bottom: 2.5rem; }
-    .hero .rq { font-size: 1rem; color: #16c79a; border: 1px solid rgba(22,199,154,0.5); border-radius: 10px; padding: 1rem 2rem; max-width: 640px; font-style: italic; background: rgba(22,199,154,0.05); }
-    .section { max-width: 1350px; margin: 0 auto; padding: 5rem 2.5rem; border-bottom: 1px solid #161928; }
-    .section-label { text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.7rem; color: #16c79a; margin-bottom: 0.6rem; font-weight: 600; }
-    .section h2 { font-size: clamp(1.6rem, 4vw, 2.6rem); font-weight: 700; color: #e2e8f0; margin-bottom: 1.2rem; line-height: 1.2; }
-    .narrative { font-size: 1rem; color: #8892a4; max-width: 720px; margin-bottom: 1.8rem; }
+
+    :root {
+      --paper:       #f1f4f8;
+      --paper-2:     #e3e9f0;
+      --ink:         #142231;
+      --ink-2:       #3c5067;
+      --ink-3:       #6b8099;
+      --rule:        #c5d2e0;
+      --ochre:       #3a7ca5;
+      --ochre-deep:  #1f5582;
+      --brick:       #2d5d7c;
+      --sage:        #5a8aa3;
+      --sage-2:      #8aaec1;
+      --gold:        #d9a441;
+      --shadow:      0 1px 0 rgba(20,34,49,.05), 0 8px 24px rgba(20,34,49,.08);
+      --chart-bg:    #111827;
+      --chart-border:#1e2d42;
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Inter Tight', 'Segoe UI', system-ui, sans-serif;
+      line-height: 1.7;
+    }
+
+    /* Navigation */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(241,244,248,.96);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--rule);
+      padding: 0.75rem 2.5rem;
+      display: flex; align-items: center; gap: 2.5rem;
+      box-shadow: 0 1px 0 rgba(20,34,49,.06);
+    }
+    nav .logo {
+      color: var(--ochre-deep);
+      font-weight: 700; font-size: 1.05rem;
+      text-decoration: none; letter-spacing: 0.01em;
+    }
+    nav a {
+      color: var(--ink-3); text-decoration: none;
+      font-size: 0.87rem; font-weight: 500;
+      letter-spacing: 0.02em; transition: color 0.2s;
+    }
+    nav a:hover { color: var(--ochre); }
+
+    /* Hero */
+    .hero {
+      min-height: 82vh;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      text-align: center; padding: 5rem 2rem;
+      background: linear-gradient(160deg, #d8e8f3 0%, var(--paper) 65%);
+      border-bottom: 2px solid var(--rule);
+      position: relative;
+    }
+    .hero::after {
+      content: ''; position: absolute; bottom: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 1px; height: 52px;
+      background: linear-gradient(to bottom, var(--rule), transparent);
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4.8rem);
+      font-weight: 800; line-height: 1.08;
+      color: var(--ink); margin-bottom: 1.5rem;
+      letter-spacing: -0.025em;
+    }
+    .hero .sub {
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
+      color: var(--ink-2); max-width: 660px;
+      margin-bottom: 2.5rem; font-weight: 400;
+    }
+    .hero .rq {
+      font-size: 1.05rem; color: var(--ink-2);
+      border: 1.5px solid var(--rule);
+      border-radius: 10px; padding: 1.1rem 2rem;
+      max-width: 640px; font-style: italic;
+      background: rgba(255,255,255,.65);
+      font-family: 'Newsreader', Georgia, serif;
+      line-height: 1.65;
+    }
+
+    /* Sections */
+    .section {
+      max-width: 1350px; margin: 0 auto;
+      padding: 5rem 2.5rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .section-label {
+      text-transform: uppercase; letter-spacing: 0.18em;
+      font-size: 0.68rem; color: var(--ochre);
+      margin-bottom: 0.5rem; font-weight: 600;
+    }
+    .section h2 {
+      font-size: clamp(1.6rem, 4vw, 2.5rem);
+      font-weight: 700; color: var(--ink);
+      margin-bottom: 1.2rem; line-height: 1.15;
+      letter-spacing: -0.015em;
+    }
+    .section-intro, .narrative {
+      font-size: 1rem; color: var(--ink-2);
+      max-width: 720px; margin-bottom: 1.7rem; line-height: 1.8;
+    }
+
+    /* Layout */
     .split { display: grid; grid-template-columns: 1fr 2.2fr; gap: 3.5rem; align-items: start; }
     @media (max-width: 860px) { .split { grid-template-columns: 1fr; } }
-    .chart-wrap { background: #111525; border: 1px solid #222840; border-radius: 14px; overflow: hidden; padding: 0.5rem; }
-    .full-chart { background: #111525; border: 1px solid #222840; border-radius: 14px; padding: 0.5rem; margin-top: 1.5rem; overflow: hidden; }
-    .hl { color: #16c79a; font-weight: 600; }
-    footer { text-align: center; padding: 3rem 2rem 4rem; color: #8892a4; font-size: 0.82rem; border-top: 1px solid #161928; line-height: 2.2; }
-    footer a { color: #16c79a; text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
-  
-    .two-col { display:grid; grid-template-columns:1fr 1fr; gap:2.5rem; margin-top:2rem; }
-    @media(max-width:900px){ .two-col { grid-template-columns:1fr; } }
-    .chart-title { font-size:1rem; font-weight:600; color:#e2e8f0; margin-bottom:0.35rem; }
-    .chart-title .badge { font-size:0.72rem; font-weight:500; color:#8892a4;
-      background:rgba(255,255,255,0.07); border-radius:4px; padding:1px 6px; margin-left:6px; }
-    .chart-sub { font-size:0.85rem; color:#8892a4; margin-bottom:0.8rem; max-width:520px; }
-    .insight-box { margin-top:2.5rem; padding:1.2rem 1.8rem;
-      background:rgba(22,199,154,0.07); border-left:3px solid #16c79a;
-      border-radius:0 8px 8px 0; font-size:0.95rem; color:#c8d5e3; line-height:1.7; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; margin-top: 2rem; }
+    @media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
 
+    /* Chart containers — dark panels to frame dark Plotly charts */
+    .chart-wrap {
+      background: var(--chart-bg);
+      border: 1px solid var(--chart-border);
+      border-radius: 12px; overflow: hidden;
+      padding: 0.5rem; box-shadow: var(--shadow);
+    }
+    .full-chart {
+      background: var(--chart-bg);
+      border: 1px solid var(--chart-border);
+      border-radius: 12px; padding: 0.5rem;
+      margin-top: 1.5rem; overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    /* Typography */
+    .hl { color: var(--ochre); font-weight: 600; }
+    .chart-title {
+      font-size: 1rem; font-weight: 600;
+      color: var(--ink); margin-bottom: 0.35rem;
+      letter-spacing: -0.01em;
+    }
+    .chart-title .badge, .badge {
+      font-size: 0.7rem; font-weight: 500;
+      color: var(--ink-3); background: var(--paper-2);
+      border-radius: 4px; padding: 2px 7px;
+      margin-left: 6px; border: 1px solid var(--rule);
+    }
+    .chart-sub {
+      font-size: 0.85rem; color: var(--ink-3);
+      margin-bottom: 0.8rem; max-width: 520px; line-height: 1.6;
+    }
+
+    /* Insight box */
+    .insight-box {
+      margin-top: 2.5rem; padding: 1.2rem 1.8rem;
+      background: rgba(58,124,165,.07);
+      border-left: 3px solid var(--ochre);
+      border-radius: 0 8px 8px 0;
+      font-size: 0.95rem; color: var(--ink-2); line-height: 1.75;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center; padding: 3rem 2rem 4rem;
+      color: var(--ink-3); font-size: 0.82rem;
+      border-top: 1px solid var(--rule);
+      line-height: 2.2; background: var(--paper-2);
+    }
+    footer a { color: var(--ochre); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* Inline colour overrides for light background */
+    [style*="#16c79a"] { color: #1a7c5c !important; }
+    [style*="#60a5fa"] { color: #2563a8 !important; }
+    [style*="#f97316"] { color: #b35800 !important; }
   </style>
 </head>
 <body>
